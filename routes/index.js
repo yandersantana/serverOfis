@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
     /*const token = await jwt.sign({_id: newUser._id}, 'secretkey');
     res.status(200).json({token});  esto guarda el id de un nuevo usuario si fuera el caso de que
     el usuario haga su registro y quiere mantener la sesion iniciada*/
-    res.send("Registrado");
+    res.send("Registrado con exito ");
 
 });
 

@@ -47,6 +47,7 @@ app.get('/', (req, res) => {
   res.send('invaild endpoint');
 });
 
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
