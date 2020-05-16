@@ -30,7 +30,7 @@ const server= http.createServer(app);
 const io= socketio.listen(server);
 
 
-mongoose.connect('mongodb+srv://admin:admin@digifiletest1-o6t78.mongodb.net/test?retryWrites=true&w=majority').then(db => console.log("db connect"));
+mongoose.connect('mongodb://admin:admin@digifiletest1-o6t78.mongodb.net/test?retryWrites=true&w=majority').then(db => console.log("db connect"));
 
 
 app.set("port" . process.env.PORT || 3000);
