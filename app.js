@@ -41,6 +41,7 @@ require('./config/passport')(passport);
 app.use('/users', users);
 app.use('/api', require('./routes/index'));
 app.use('/grupos', require('./routes/groupsRoutes'));
+app.use('/empresas', require('./routes/empresasRoutes'));
 
 // Index Route
 app.get('/', (req, res) => {

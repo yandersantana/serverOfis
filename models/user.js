@@ -52,11 +52,14 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
 
 
 const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true},
+  id: { type: Number, required: false},
+  name: { type: String, required: false},
   email: { type: String, required: true},
   password: { type: String, required: true},
   rol: { type: String, required: true},
-  grupo: { type: String, required: true}
+  grupo: { type: String, required: false},
+  empresa: { type: String, required: false},
+  numUsuarios: { type: Number, required: false}
 },{
   timestamps:true
 });

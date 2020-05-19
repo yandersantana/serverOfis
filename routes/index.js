@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
     /*const token = await jwt.sign({_id: newUser._id}, 'secretkey');
     res.status(200).json({token});  esto guarda el id de un nuevo usuario si fuera el caso de que
     el usuario haga su registro y quiere mantener la sesion iniciada*/
-    res.send("Registrado con exito ");
+    res.send("Registrado");
 
 });
 
@@ -89,12 +89,51 @@ router.get('/getUsers/:id', async (req, res) => {
 
 
 router.post('/newUser', async (req, res) => {
-	const { email, password, name, rol,grupo } = req.body;
-    const newUser = new User({ email, password, name, rol ,grupo});
+	const { email, password, name, rol,grupo,empresa,numUsuarios } = req.body;
+    const newUser = new User({ email, password, name, rol ,grupo,empresa,numUsuarios});
     console.log(newUser);
     await newUser.save();
-
+    res.json({status: 'user creado'});
 });
+
+//actualizar un solo usuario
+
+router.put('/updateUser/:id', async (req, res,next) => {
+    const { id } = req.params;
+    const user = {
+        name: req.body.name,
+        description: req.body.description,
+        email: req.body.email,
+        password: req.body.password
+    };
+    await User.findByIdAndUpdate(id, {$set: user}, {new: true});
+    res.json({status: 'Perfil Actualizado'});  
+})
+
+
+router.put('/update/:id', async (req, res,next) => {
+    const { id } = req.params;
+    /* const { email, password, name, rol,grupo,empresa,numUsuarios } = req.body;
+    const newUser = new User({ email, password, name, rol ,grupo,empresa,numUsuarios}); */
+    const usuario = {
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email,
+        grupo: req.body.grupo,
+        empresa: req.body.empresa,
+        //numUsuarios: req.body.numUsuarios,
+    };
+    await User.findByIdAndUpdate(id, {$set: usuario}, {new: true});
+    res.json({status: 'User Updated'});  
+})
+
+
+router.delete('/delete/:id', async (req, res,next) => {
+    await User.findByIdAndRemove(req.params.id);
+    res.json({status: 'USER Deleted'});
+})
+
+
 
 
 module.exports = router;
