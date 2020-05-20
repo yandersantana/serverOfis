@@ -89,11 +89,22 @@ router.get('/getUsers/:id', async (req, res) => {
 
 
 router.post('/newUser', async (req, res) => {
-	const { email, password, name, rol,grupo,empresa,numUsuarios } = req.body;
-    const newUser = new User({ email, password, name, rol ,grupo,empresa,numUsuarios});
-    console.log(newUser);
-    await newUser.save();
-    res.json({status: 'user creado'});
+    const { email, password, name, rol,grupo,empresa,numUsuarios,username } = req.body;
+     console.log("correo a buscar "+email)
+    const emailExiste = await User.findOne({ email });
+    console.log("Mail exiw"+emailExiste);
+    if (emailExiste){
+        return  res.status(401).send('Correo ya está asociado a otra cuenta');
+    } 
+    else{
+        const { email, password, name, rol,grupo,empresa,numUsuarios,username,imageProfile } = req.body;
+        const newUser = new User({ email, password, name, rol ,grupo,empresa,numUsuarios,username,imageProfile});
+        
+        console.log(newUser);
+        await newUser.save();
+        res.json({status: 'user creado'});
+    }
+
 });
 
 //actualizar un solo usuario
@@ -104,7 +115,8 @@ router.put('/updateUser/:id', async (req, res,next) => {
         name: req.body.name,
         description: req.body.description,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        imageProfile: req.body.imageProfile,
     };
     await User.findByIdAndUpdate(id, {$set: user}, {new: true});
     res.json({status: 'Perfil Actualizado'});  

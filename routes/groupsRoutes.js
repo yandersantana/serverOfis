@@ -22,11 +22,11 @@ router.put('/update/:id', async (req, res,next) => {
     const grupos = {
         name: req.body.name,
         description: req.body.description,
-        email: req.body.email,
-        permisos: req.body.permisos
+        empresa: req.body.empresa,
+       // permisos: req.body.permisos
     };
     await Groups.findByIdAndUpdate(id, {$set: grupos}, {new: true});
-    res.json({status: 'Employee Updated'});  
+    res.json({status: 'Actualización Exitosa'}); 
 })
 
 
@@ -36,11 +36,12 @@ router.delete('/delete/:id', async (req, res,next) => {
 })
 
 router.post('/newGroup', async (req, res) => {
-    const { name, description, email,permisos } = req.body;
-    const newGroup = new Groups({ name, description, email,permisos});
+    //const { name, description,permisos } = req.body;
+    const { name, description,empresa} = req.body;
+    const newGroup = new Groups({ name, description,empresa});
     console.log("ttt "+newGroup);
     await newGroup.save();
-    res.send("Grupo registrado");
+    res.json({status: 'Se ha creado un nuevo grupo'});  
 
 });
 
