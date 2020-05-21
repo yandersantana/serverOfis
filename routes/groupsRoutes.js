@@ -16,6 +16,12 @@ router.get('/getGroup', async (req, res) => {
     res.send(grupos)      
 })
 
+router.get('/getGroup/:empresa', async (req, res) => {
+    const { empresa } = req.params;
+    const grupos = await Groups.find({"empresa":empresa});
+    res.json(grupos); 
+})
+
 
 router.put('/update/:id', async (req, res,next) => {
     const { id } = req.params;

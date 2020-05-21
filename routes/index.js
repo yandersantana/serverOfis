@@ -80,10 +80,28 @@ router.get('/getUsers', async (req, res) => {
     res.send(grupos)      
 })
 
+router.get('/getUsers2', async (req, res) => {
+    const grupos = await User.find({"empresa":"Webbi"});
+    res.send(grupos)      
+})
+
 router.get('/getUsers/:id', async (req, res) => {
     const { id } = req.params;
 	const grupos = await User.findById(id);
 	res.json(grupos);   
+})
+
+router.get('/getUsers2/:empresa', async (req, res) => {
+    const { empresa } = req.params;
+    const grupos = await User.find({"empresa":empresa});
+    res.json(grupos); 
+})
+
+router.get('/getUsers1/:correo', async (req, res) => {
+    const { correo } = req.params;
+    const grupos = await User.find({"email":correo});
+    console.log("sss "+grupos)
+    res.json(grupos); 
 })
 
 
@@ -110,9 +128,11 @@ router.post('/newUser', async (req, res) => {
 //actualizar un solo usuario
 
 router.put('/updateUser/:id', async (req, res,next) => {
+  
     const { id } = req.params;
     const user = {
         name: req.body.name,
+        username: req.body.username,
         description: req.body.description,
         email: req.body.email,
         password: req.body.password,
@@ -131,6 +151,7 @@ router.put('/update/:id', async (req, res,next) => {
         name: req.body.name,
         password: req.body.password,
         email: req.body.email,
+        username: req.body.username,
         grupo: req.body.grupo,
         empresa: req.body.empresa,
         //numUsuarios: req.body.numUsuarios,
