@@ -17,10 +17,16 @@ const multipartMiddleware = multipart({
 
 router.post('/uploadFile', multipartMiddleware, (req, res, next) => {
    
-    console.log("file"+ req.files.name);
-    //var path = '';
+    var file = req.files.uploads;
+    for (var i = 0; i < file .length; i++) {//para cuando sean varios documentos
+        var pathy = file[i]
+  
+      }
+    console.log(file.length);
+    console.log(file[0].path);
     res.json({
-        'message': 'File uploaded succesfully.'
+        'message': 'File uploaded succesfully.',
+        'url':pathy.path 
     });
 });
 
