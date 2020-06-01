@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
     grupo: { type: String, required: false},
     empresa: { type: String, required: false},
     numUsuarios: { type: Number, required: false},
+    status:{ type: String, required: false},
     imageProfile: { type: String, required: false}
 },{
     timestamps:true

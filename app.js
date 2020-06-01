@@ -31,6 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 // Passport Middleware
 app.use(passport.initialize());
@@ -42,6 +45,10 @@ app.use('/users', users);
 app.use('/api', require('./routes/index'));
 app.use('/grupos', require('./routes/groupsRoutes'));
 app.use('/empresas', require('./routes/empresasRoutes'));
+app.use('/upload', require('./routes/fileRoutes'));
+app.use('/indexes', require('./routes/indexesRoutes'));
+app.use('/clasesDoc', require('./routes/clasesDocRoutes'));
+
 
 // Index Route
 app.get('/', (req, res) => {

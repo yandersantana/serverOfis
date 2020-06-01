@@ -8,8 +8,8 @@ router.get('/', (req, res) => res.send('Holly Molly'))
 
 router.post('/register', async (req, res) => {
 	if(req.body.password){}
-    const { email, password, name, lastname } = req.body;
-    const newUser = new User({ email, password, name, lastname });
+    const { email, password, name, lastname, status } = req.body;
+    const newUser = new User({ email, password, name, lastname , status});
     console.log(newUser);
     await newUser.save();
     /*const token = await jwt.sign({_id: newUser._id}, 'secretkey');
@@ -107,7 +107,7 @@ router.get('/getUsers1/:correo', async (req, res) => {
 
 
 router.post('/newUser', async (req, res) => {
-    const { email, password, name, rol,grupo,empresa,numUsuarios,username } = req.body;
+    const { email, password, name, rol,grupo,empresa,numUsuarios,username, status } = req.body;
      console.log("correo a buscar "+email)
     const emailExiste = await User.findOne({ email });
     console.log("Mail exiw"+emailExiste);
@@ -115,8 +115,8 @@ router.post('/newUser', async (req, res) => {
         return  res.status(401).send('Correo ya está asociado a otra cuenta');
     } 
     else{
-        const { email, password, name, rol,grupo,empresa,numUsuarios,username,imageProfile } = req.body;
-        const newUser = new User({ email, password, name, rol ,grupo,empresa,numUsuarios,username,imageProfile});
+        const { email, password, name, rol,grupo,empresa,numUsuarios,username,imageProfile, status } = req.body;
+        const newUser = new User({ email, password, name, rol ,grupo,empresa,numUsuarios,username,imageProfile, status});
         
         console.log(newUser);
         await newUser.save();
@@ -136,6 +136,7 @@ router.put('/updateUser/:id', async (req, res,next) => {
         description: req.body.description,
         email: req.body.email,
         password: req.body.password,
+        status:req.body.status,
         imageProfile: req.body.imageProfile,
     };
     await User.findByIdAndUpdate(id, {$set: user}, {new: true});
@@ -154,8 +155,10 @@ router.put('/update/:id', async (req, res,next) => {
         username: req.body.username,
         grupo: req.body.grupo,
         empresa: req.body.empresa,
+        status:req.body.status
         //numUsuarios: req.body.numUsuarios,
     };
+    console.log(usuario)
     await User.findByIdAndUpdate(id, {$set: usuario}, {new: true});
     res.json({status: 'User Updated'});  
 })
