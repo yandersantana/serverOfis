@@ -6,6 +6,7 @@ const IndexesSchema = new Schema({
     index_name: { type: String, required: true},
     index_description: { type: String, required: true},
     index_type: { type: String, required: true},
+    empresa: { type: String, required: true},
     index_legnth: { type: Number, required: true},
 },{
     timestamps:true

@@ -9,6 +9,7 @@ const DocumentoSchema = new Schema({
     version: { type: String, required: false},
     urlDocumento: { type: String, required: false},
     creadoPor: { type: String, required: false},
+    empresa: { type: String, required: false},
     fechaCreacion: { type: String, required: false},
     tamanoArchivo: { type: String, required: false},
     newdoc_indices: { type: Array, required: false}

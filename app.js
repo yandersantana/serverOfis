@@ -21,7 +21,7 @@ const app = express();
 const users = require('./routes/users');
 
 // Port Number
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 // CORS Middleware
 app.use(cors());
@@ -29,12 +29,10 @@ app.use(cors());
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Body Parser Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
 
+app.use(bodyParser.json({limit: '50mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
+app.use('/uploads', express.static('uploads'));
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());

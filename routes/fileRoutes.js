@@ -1,35 +1,136 @@
 
 const { Router } = require('express');
 const router = Router();
+//const upload = require('./upload');
 const multipart = require('connect-multiparty');
 const bodyParser = require('body-parser');
-const Documentos = require('../models/documento')
-
-
-//router.use(bodyParser.json());
-//router.use(bodyParser.urlencoded({
-//    extended: true
-//}));
+const formidable = require('formidable');
+const Documentos = require('../models/documento');
+const express = require('express'),
+  path = require('path'),
+  cors = require('cors'),
+  multer = require('multer');
+/*router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({
+    extended: true
+}));*/
 
 const multipartMiddleware = multipart({
-    uploadDir: './uploads/'
+    uploadDir: './uploads'
 });
 
-router.post('/uploadFile', multipartMiddleware, (req, res, next) => {
-   
-    var file = req.files.uploads;
+router.post('/api/upload', multipartMiddleware, (req, res) => {
+    var file=req.files
+    console.log("files "+JSON.stringify(file))
     for (var i = 0; i < file .length; i++) {//para cuando sean varios documentos
         var pathy = file[i]
-  
+        console.log("ddd "+pathy.path)
       }
+    //console.log(file.uploads.path)
+        res.json({
+            'message': 'File uploaded succesfully.',
+            'url':'http://localhost:3000/'
+        });
+   
+    /* res.json({
+        'message': 'File uploaded succesfully.'
+    }); */
+
+    
+});
+ 
+
+
+//app.use(multer({ dest: '/tmp/'}).single('file'))
+
+// File upload settings  
+const PATH = './uploads';
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, PATH);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+let upload = multer({
+  storage: storage
+});
+
+ router.post('/uploadFile', multipartMiddleware, (req, res, next) => {
+  // console.log("sss "+bodyParser.text([req]))
+   var file=req.files.uploads
+   console.log("files "+JSON.stringify(file))
+    for (var i = 0; i < file .length; i++) {//para cuando sean varios documentos
+        var pathy = file[i]
+      }
+   
+
+      var sizeKb = 1024;
+      var sizeMb = sizeKb * sizeKb;
+      var sizeGb = sizeMb * sizeKb;
+      var tamaño=pathy.size.length
+      console.log("el tamaño es"+tamaño)
+
     console.log(file.length);
     console.log(file[0].path);
     res.json({
         'message': 'File uploaded succesfully.',
-        'url':pathy.path 
+        'url':'http://localhost:3000/'+pathy.path,
+        'size': parseInt(pathy.size/1024)
+        
     });
-});
+});  
 
+
+// POST File
+/* router.post('/uploadFile', upload.single(fieldname), function (req, res) {
+    if (!req.file) {
+      console.log("No file is available!");
+      return res.send({
+        success: false
+      });
+  
+    } else {
+      console.log('File is available!');
+      return res.send({
+        success: true
+      })
+    }
+});
+ */
+
+
+/* 
+router.post('/uploadFile', function (req, res) {
+    console.log(req.file.name);
+    console.log(req.file.path);
+    console.log(req.file.type);
+    var file = __dirname + "/" + req.file.name;
+ 
+    fs.readFile( req.file.path, function (err, data) {
+       fs.writeFile(file, data, function (err) {
+          if( err ){
+             console.log( err );
+             }else{
+                response = {
+                   message:'File uploaded successfully',
+                   filename:req.file.name
+                };
+             }
+          console.log( response );
+          res.end( JSON.stringify( response ) );
+       });
+    });
+ }) */
+  
+
+router.get('/', function(req, res) {
+    let ruta= req.body.ruta
+    res.sendFile(uploads + ruta);
+  })
 
 router.get('/getDocumentos', async (req, res) => {
     const documentos = await Documentos.find();
@@ -81,8 +182,6 @@ router.post('/newDocument', async (req, res) => {
     //res.send("empresa registrado");
     res.json({status: 'Documento CREADo'});
 });
-
-
 
 
 module.exports = router;

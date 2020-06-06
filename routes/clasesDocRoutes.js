@@ -12,6 +12,7 @@ router.post('/newClassDoc', async (req, res) => {
         clasedoc_cantidadDoc:req.body.clasedoc_cantidadDoc,
         clasedoc_indicesNum:req.body.clasedoc_indicesNum,
         clasedoc_tamanoMax: req.body.clasedoc_tamanoMax,
+        empresa:req.body.empresa,
         clasedoc_cantidadMax:req.body.clasedoc_cantidadMax,
         clasedoc_estado:req.body.clasedoc_estado,
         clasedoc_indices:req.body.clasedoc_indices});
@@ -22,6 +23,7 @@ router.post('/newClassDoc', async (req, res) => {
 });
 
 router.get('/getClassDoc/:empresa', async (req, res) => {
+    console.log("entre aqui ")
     const { empresa } = req.params;
     const clase = await ClasesDoc.find({"clasedoc_empresa":empresa});
     res.json(clase); 
@@ -44,6 +46,7 @@ router.put('/update/:id', async (req, res,next) => {
         clasedoc_tamanoMax: req.body.clasedoc_tamanoMax,
         clasedoc_cantidadMax:req.body.clasedoc_cantidadMax,
         clasedoc_estado:req.body.clasedoc_estado,
+        empresa: req.body.empresa,
         clasedoc_indices:req.body.clasedoc_indices
         
     };
