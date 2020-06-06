@@ -78,7 +78,7 @@ let upload = multer({
     console.log(file[0].path);
     res.json({
         'message': 'File uploaded succesfully.',
-        'url':'http://localhost:3000/'+pathy.path,
+        'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
         'size': parseInt(pathy.size/1024)
         
     });
