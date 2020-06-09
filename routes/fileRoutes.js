@@ -82,7 +82,7 @@ let upload = multer({
         'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
         //'url':'http://localhost:3000/'+pathy.path,
         //'url':'https://www.w3schools.com/',
-      //  'size': parseInt(pathy.size/1024)
+        'size': parseInt(pathy.size/1024)
         
     });
 });  
