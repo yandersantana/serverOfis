@@ -61,6 +61,7 @@ let upload = multer({
 
  router.post('/uploadFile', multipartMiddleware, (req, res, next) => {
   // console.log("sss "+bodyParser.text([req]))
+ console.log(req.files.uploads)
    var file=req.files.uploads
    console.log("files "+JSON.stringify(file))
     for (var i = 0; i < file .length; i++) {//para cuando sean varios documentos
@@ -78,8 +79,10 @@ let upload = multer({
     console.log(file[0].path);
     res.json({
         'message': 'File uploaded succesfully.',
-        'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
-        'size': parseInt(pathy.size/1024)
+        //'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
+        'url':'http://localhost:3000/'+pathy.path,
+        //'url':'https://www.w3schools.com/',
+      //  'size': parseInt(pathy.size/1024)
         
     });
 });  
@@ -137,6 +140,13 @@ router.get('/getDocumentos', async (req, res) => {
     res.send(documentos)      
 })
 
+router.post('/DocumentosByClass/', async (req, res) => {
+
+  const documentos = await Documentos.find({"clase":req.body.clasedoc_name,"empresa":req.body.clasedoc_empresa});
+  console.log(documentos)
+  res.json(documentos); 
+})
+
 router.get('/getDocumentos3/:clase', async (req, res) => {
     const { clase } = req.params;
     const clases = await Documentos.find({"clase":clase});
@@ -176,6 +186,7 @@ router.post('/newDocument', async (req, res) => {
         creadoPor: req.body.creadoPor,
         fechaCreacion: req.body.fechaCreacion,
         tamanoArchivo: req.body.tamanoArchivo,
+        empresa: req.body.empresa,
         newdoc_indices: req.body.newdoc_indices});
     console.log("ttt "+newDoc);
     await newDoc.save();
