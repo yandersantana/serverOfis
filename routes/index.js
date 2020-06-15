@@ -37,6 +37,7 @@ router.get('/dashboard', verifyToken, (req, res) => {//para rutas privadas
            
 });
 
+
 router.post('/signInGoogle', async (req, res) => {
     const { email } = req.body;
 
@@ -100,8 +101,7 @@ router.get('/getUsers2/:empresa', async (req, res) => {
 router.get('/getUsers1/:correo', async (req, res) => {
     const { correo } = req.params;
     const grupos = await User.find({"email":correo});
-    //console.log("sss "+grupos)
-    
+   // console.log("sss "+grupos)
     res.json(grupos); 
 })
 

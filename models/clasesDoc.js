@@ -12,7 +12,9 @@ const ClasesDocSchema = new Schema({
     clasedoc_tamanoMax: { type: String, required: true},
     clasedoc_cantidadMax: { type: Number, required: true},
     clasedoc_estado: { type: String, required: true},
-    clasedoc_indices: { type: Array, required: false}
+    clasedoc_indices: { type: Array, required: false},
+    permisosGrupo: { type: Array, required: false},
+    permisosUsuario: { type: Array, required: false}
 },{
     timestamps:true
 });

@@ -61,7 +61,7 @@ let upload = multer({
 
  router.post('/uploadFile', multipartMiddleware, (req, res, next) => {
   // console.log("sss "+bodyParser.text([req]))
- console.log(req.files.uploads)
+console.log(req.files.uploads)
    var file=req.files.uploads
    console.log("files "+JSON.stringify(file))
     for (var i = 0; i < file .length; i++) {//para cuando sean varios documentos
@@ -79,9 +79,10 @@ let upload = multer({
     console.log(file[0].path);
     res.json({
         'message': 'File uploaded succesfully.',
-        'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
-        //'url':'http://localhost:3000/'+pathy.path,
-        //'url':'https://www.w3schools.com/',
+        //'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
+        'url':'http://localhost:3000/'+pathy.path,
+        //'url':'https://www.w3schools.com/css/default.asp',
+
         'size': parseInt(pathy.size/1024)
         
     });
@@ -170,6 +171,25 @@ router.put('/update/:id', async (req, res,next) => {
     res.json({status: 'Documentos Updated'});  
 })
 
+router.put('/updateFile/:id', async (req, res,next) => {
+  const { id } = req.params;
+  const newDoc = {
+    clase: req.body.clase,
+    nombreDocumento: req.body.nombreDocumento,
+    version: req.body.version,
+    urlDocumento: req.body.urlDocumento,
+    creadoPor: req.body.creadoPor,
+    fechaCreacion: req.body.fechaCreacion,
+    tamanoArchivo: req.body.tamanoArchivo,
+    empresa: req.body.empresa,
+    newdoc_indices: req.body.newdoc_indices,
+    versionesUrl:req.body.versionesUrl
+
+  };
+  await Documentos.findByIdAndUpdate(id, {$set: newDoc}, {new: true});
+  res.json({status: 'Documentos Updated'});  
+})
+
 
 router.delete('/delete/:id', async (req, res,next) => {
     await Documentos.findByIdAndRemove(req.params.id);
@@ -187,7 +207,8 @@ router.post('/newDocument', async (req, res) => {
         fechaCreacion: req.body.fechaCreacion,
         tamanoArchivo: req.body.tamanoArchivo,
         empresa: req.body.empresa,
-        newdoc_indices: req.body.newdoc_indices});
+        newdoc_indices: req.body.newdoc_indices,
+        versionesUrl:req.body.versionesUrl});
     console.log("ttt "+newDoc);
     await newDoc.save();
     //res.send("empresa registrado");

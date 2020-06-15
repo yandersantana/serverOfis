@@ -12,7 +12,8 @@ const DocumentoSchema = new Schema({
     empresa: { type: String, required: false},
     fechaCreacion: { type: String, required: false},
     tamanoArchivo: { type: String, required: false},
-    newdoc_indices: { type: Array, required: false}
+    newdoc_indices: { type: Array, required: false},
+    versionesUrl: { type: Array, required: false}
     /* clasedoc_name: { type: String, required: false},
     clasedoc_description: { type: String, required: false},
     clasedoc_empresa: { type: String, required: false},

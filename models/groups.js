@@ -6,6 +6,8 @@ const GruposSchema = new Schema({
     name: { type: String, required: true},
     description: { type: String, required: true},
     empresa: { type: String, required: true},
+    numIntegrantes: { type: Number, required: false},
+    integrantes: { type: Array, required: false}
 },{
     timestamps:true
 });

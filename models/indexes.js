@@ -8,6 +8,7 @@ const IndexesSchema = new Schema({
     index_type: { type: String, required: true},
     empresa: { type: String, required: true},
     index_legnth: { type: Number, required: true},
+    lista_id:{ type:String, required: false},
 },{
     timestamps:true
 });

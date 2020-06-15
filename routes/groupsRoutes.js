@@ -22,6 +22,15 @@ router.get('/getGroup/:empresa', async (req, res) => {
     res.json(grupos); 
 })
 
+router.get('/getEmpresabyIDUser/:id', async (req, res) => {
+    const { id } = req.params;
+    const grupos = await Groups.find({ "integrantes._id": id });
+    console.log("ddd "+grupos.length)
+    res.json(grupos); 
+})
+
+
+
 
 router.put('/update/:id', async (req, res,next) => {
     const { id } = req.params;
@@ -29,7 +38,8 @@ router.put('/update/:id', async (req, res,next) => {
         name: req.body.name,
         description: req.body.description,
         empresa: req.body.empresa,
-       // permisos: req.body.permisos
+        numIntegrantes: req.body.numIntegrantes,
+        integrantes: req.body.integrantes
     };
     await Groups.findByIdAndUpdate(id, {$set: grupos}, {new: true});
     res.json({status: 'Actualización Exitosa'}); 
@@ -43,8 +53,8 @@ router.delete('/delete/:id', async (req, res,next) => {
 
 router.post('/newGroup', async (req, res) => {
     //const { name, description,permisos } = req.body;
-    const { name, description,empresa} = req.body;
-    const newGroup = new Groups({ name, description,empresa});
+    const { name, description,empresa,numIntegrantes,integrantes} = req.body;
+    const newGroup = new Groups({ name, description,empresa,numIntegrantes,integrantes});
     console.log("ttt "+newGroup);
     await newGroup.save();
     res.json({status: 'Se ha creado un nuevo grupo'});  

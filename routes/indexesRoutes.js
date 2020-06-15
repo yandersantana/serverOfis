@@ -15,7 +15,8 @@ router.put('/update/:id', async (req, res,next) => {
         index_decription: req.body.index_description,
         index_type: req.body.index_type,
         index_legnth: req.body.index_legnth,
-        empresa:req.body.empresa
+        empresa:req.body.empresa,
+        lista_id:req.body.lista_id
     };
     await Indexes.findByIdAndUpdate(id, {$set: indexes}, {new: true});
     res.json({status: 'Ìndice Actualizado'});  
@@ -34,13 +35,14 @@ router.get('/getIndexesByEmpresa/:empresa', async (req, res) => {
 })
 
 router.post('/newIndex', async (req, res) => {
-    const { index_name, index_description, index_type,index_length } = req.body;
+    const { index_name, index_description, index_type,index_length,lista_id } = req.body;
     const newIndex= new Indexes({ 
         index_name: req.body.index_name,
         index_description: req.body.index_description,
         index_type: req.body.index_type,
         index_legnth: req.body.index_legnth,
-        empresa:req.body.empresa
+        empresa:req.body.empresa,
+        lista_id:req.body.lista_id
         });
     console.log("ttt "+newIndex);
     await newIndex.save();
