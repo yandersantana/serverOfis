@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true},
     rol: { type: String, required: true},
     grupo: { type: String, required: false},
-    empresa: { type: String, required: false},
+    empresa: { type: Array, required: false},
     numUsuarios: { type: Number, required: false},
     status:{ type: String, required: false},
     imageProfile: { type: String, required: false}
