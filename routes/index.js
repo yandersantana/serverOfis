@@ -94,7 +94,7 @@ router.get('/getUsers/:id', async (req, res) => {
 
 router.get('/getUsers2/:empresa', async (req, res) => {
     const { empresa } = req.params;
-    const grupos = await User.find({"empresa":empresa});
+    const grupos = await User.find({"empresa.nombre":empresa});
     res.json(grupos); 
 })
 
