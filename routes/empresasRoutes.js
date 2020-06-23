@@ -32,7 +32,7 @@ router.delete('/delete/:id', async (req, res,next) => {
 router.post('/newEmpresa', async (req, res) => {
     const { nombre, representante, direccion,email_empresarial,email_administrador,contrasena,numUsuarios } = req.body;
     const newEmpresa = new Empresas({ nombre:req.body.nombre,
-         representante:req.body.nombre, 
+         representante:req.body.representante, 
          direccion:req.body.direccion,
          ruc:req.body.ruc,
          email_empresarial: req.body.email_empresarial,

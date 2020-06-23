@@ -19,6 +19,10 @@ router.post('/register', async (req, res) => {
 
 });
 
+router.get('/getUsers2', async (req, res) => {
+    const usuarios = await User.find({"rol":"Administrador"});
+    res.send(usuarios)      
+})
 
 router.post('/signIn', async (req, res) => {
     const { email, password } = req.body;
