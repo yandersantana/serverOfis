@@ -12,7 +12,7 @@ router.put('/update/:id', async (req, res,next) => {
     const { id } = req.params;
     const indexes = {
         index_name: req.body.index_name,
-        index_decription: req.body.index_description,
+        index_description: req.body.index_description,
         index_type: req.body.index_type,
         index_legnth: req.body.index_legnth,
         empresa:req.body.empresa,

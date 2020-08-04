@@ -114,7 +114,20 @@ router.put('/updatePermisosUsuarios/:id/', async (req, res,next) => {
     res.json({status: 'Actualización Exitosa'}); 
 })
 
+router.post('/getClassDocbyEmpresaByUserAccess/', async (req, res) => {
+   
+    const documentos = await ClasesDoc.find({ "clasedoc_empresa": req.body.empresa_id,"permisosUsuario.nombreUsuario": req.body.user_id });
+  console.log(req.body.empresa_id + req.body.user_id)
+    res.json(documentos);
+  })
+  
 
+  router.post('/getClassDocbyEmpresaByGroupAccess/', async (req, res) => {
+   
+    const documentos = await ClasesDoc.find({ "clasedoc_empresa": req.body.empresa_id,"permisosGrupo._id":  req.body.grupo_id });
+  
+    res.json(documentos);
+  })
 
 
 router.delete('/delete/:id', async (req, res,next) => {

@@ -109,6 +109,13 @@ router.get('/getUsers1/:correo', async (req, res) => {
     res.json(grupos); 
 })
 
+router.get('/getUserAccess/:_id', async (req, res) => {
+    const { _id } = req.params;
+    const user = await User.find({"_id":_id});
+   // console.log("sss "+grupos)
+    res.json(user); 
+})
+
 
 
 router.post('/newUser', async (req, res) => {

@@ -22,6 +22,13 @@ router.get('/getGroup/:empresa', async (req, res) => {
     res.json(grupos); 
 })
 
+router.get('/getGroupByUser/:_id', async (req, res) => {
+    const { _id } = req.params;
+    const grupos = await Groups.find({"integrantes._id":_id});
+   // console.log("alo??"+grupos)
+    res.json(grupos); 
+})
+
 router.get('/getEmpresabyIDUser/:id', async (req, res) => {
     const { id } = req.params;
     const grupos = await Groups.find({ "integrantes._id": id });
