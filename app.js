@@ -45,6 +45,7 @@ app.use('/grupos', require('./routes/groupsRoutes'));
 app.use('/empresas', require('./routes/empresasRoutes'));
 app.use('/upload', require('./routes/fileRoutes'));
 app.use('/indexes', require('./routes/indexesRoutes'));
+app.use('/email', require('./routes/emailRoutes'));
 app.use('/clasesDoc', require('./routes/clasesDocRoutes'));
 app.use('/list', require('./routes/listRoutes'));
 
