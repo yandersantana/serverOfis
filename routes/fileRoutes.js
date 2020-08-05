@@ -56,6 +56,12 @@ router.get('/files', async (req, res) => {
 
 });
 
+router.post('/loadPDF', async (req, res) => {
+
+  res.json("http://localhost:3000/uploads/cPlev1MsH0mwVzgddvaqNbJR.pdf");
+
+});
+
 
 const PATH = './uploads';
 
@@ -91,8 +97,8 @@ router.post('/uploadFile', multipartMiddleware, (req, res, next) => {
   
   res.json({
     'message': 'File uploaded succesfully.',
-    'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
-   // 'url': 'http://localhost:3000/' + pathy.path,
+    //'url':'http://ofistoreserver.herokuapp.com/'+pathy.path,
+    'url': 'http://localhost:3000/' + pathy.path,
    // 'url':  pathy.path,
     //'url':'https://www.w3schools.com/css/default.asp',
 
